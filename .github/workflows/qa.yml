@@ -1,0 +1,20 @@
+name: QA
+
+on: workflow_dispatch
+
+jobs:
+  qa:
+    name: QA
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: CHECKOUT_REPO
+        uses: actions/checkout@v2
+
+      - name: TEST
+        timeout-minutes: 50
+        continue-on-error: true
+        run: |
+          docker load -i pineapple.tar
+          docker run -d --rm silkworm:1.0
+          while true; do echo -n "Progress "; date; sleep 10; done
